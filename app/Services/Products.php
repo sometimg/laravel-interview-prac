@@ -35,4 +35,15 @@ class Products implements ProductContract
     public function delete($id) {
         Product::where('id', '=', $id)->delete();
     }
+
+    /**
+     * Get all of the unique tags
+     * @param $string list of all the tags, seperated by commas.
+     * @return array of strings that are tags
+     */
+    function unique_tags($string) {
+        $output = explode(",", $string);
+        $clean = array_map('trim', $output);
+        return array_unique($clean);
+    }
 }
