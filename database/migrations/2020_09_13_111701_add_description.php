@@ -15,7 +15,7 @@ class AddDescription extends Migration
     {
         //
         Schema::table('products', function(Blueprint $blueprint) {
-            $blueprint->addColumn('text', 'description')->after('name');
+            $blueprint->addColumn('text', 'description')->after('name')->nullable();
         });
     }
 

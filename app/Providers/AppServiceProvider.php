@@ -2,10 +2,17 @@
 
 namespace App\Providers;
 
+use App\Services\ProductContract;
+use App\Services\Products;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+
+    public $bindings = [
+        ProductContract::class => Products::class
+    ];
+
     /**
      * Register any application services.
      *
