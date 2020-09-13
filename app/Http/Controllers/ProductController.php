@@ -16,6 +16,12 @@ class ProductController extends Controller
 
     public function new(Request $request)
     {
+        $validated = $request->validate([
+            'name' => 'required|unique:products|max:64',
+            'description' => '',
+            'tags' => '',
+        ]);
+
         DB::insert("INSERT INTO products (name) VALUES ('".$request->name."')");
 
         return redirect('/products')->with('status', 'Product saved');

@@ -45,6 +45,14 @@
 
 
         <h2>New product</h2>
+        @if ($errors->any())
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+        @endif
+
         <form action="/products/new" method="POST">
             @csrf
             <input type="text" name="name" placeholder="name" /><br />
