@@ -13,26 +13,48 @@
             .alert-fail {
                 color: red
             }
+            .pill {
+                background-color: lightblue;
+                border-radius: 5px;
+                display: inline;
+                padding: 5px
+            }
         </style>
     </head>
     <body>
 
         <h1>Current Products</h1>
 
-        @forelse($products as $product)
-        <ul>
-            <li>
-                {{ $product->name }}
+        @if (empty($products))
+        <p><em>No products have been created yet.</em></p>
+        @else
+        <table width="50%">
+            <tr>
+                <th>Product Name</th>
+                <th>Description</th>
+                <th>Tags</th>
+                <th>Delete</th>
+            </tr>
+        @foreach($products as $product)
+            <tr>
+                <td width="50%">{{ $product->name }}</td>
+                <td>{{ $product->description }}</td>
+                <td>
+                    @foreach($product->tags as $tag)
+                    <div class="pill">{{ $tag->name }}</div>
+                    @endforeach
+                </td>
+                <td>
                 <form action="/products/delete" method="POST">
                     @csrf
                     <input type="hidden" name="id" value="{{ $product->id }}"/>
                     <button type="submit">delete</button>
                 </form>
-            </li>
-        </ul>
-        @empty
-            <p><em>No products have been created yet.</em></p>
-        @endforelse
+                </td>
+            </tr>
+        @endforeach
+        </table>
+        @endif
 
 
 
