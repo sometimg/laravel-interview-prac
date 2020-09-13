@@ -19,7 +19,7 @@
 
         <h1>Current Products</h1>
 
-        @forelse(\App\Product::all() as $product)
+        @forelse($products as $product)
         <ul>
             <li>
                 {{ $product->name }}

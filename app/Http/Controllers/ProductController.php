@@ -19,7 +19,9 @@ class ProductController extends Controller
 
     public function index()
     {
-        return view('products.index');
+        return view('products.index', [
+            'products' => $this->products->get()
+        ]);
     }
 
     public function new(Request $request)
@@ -35,7 +37,7 @@ class ProductController extends Controller
     public function delete(Request $request)
     {
         $validated = $this->validateId($request);
-        DB::table('products')->where('id', '=', $validated['id'])->delete();
+        $this->products->delete($validated['id']);
 
         return redirect('/products')->with('status', 'Product was deleted');
     }

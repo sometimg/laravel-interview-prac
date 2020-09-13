@@ -5,6 +5,14 @@ use App\Product;
 class Products implements ProductContract
 {
     /**
+     * Get all the products
+     * @return mixed
+     */
+    public function get() {
+        return Product::all();
+    }
+
+    /**
      * Create a new product
      * @param $with
      * ['name'] the name of the product
@@ -12,12 +20,18 @@ class Products implements ProductContract
      * @return id the id of the product created
      */
     public function create($with) {
-        return Product::insertGetId([
+        $model = Product::create([
             'name' => $with['name'],
             'description' => $with['description']
         ]);
+
+        return $model->id;
     }
 
+    /**
+     * Delete a product with a given ID
+     * @param $id
+     */
     public function delete($id) {
         Product::where('id', '=', $id)->delete();
     }
