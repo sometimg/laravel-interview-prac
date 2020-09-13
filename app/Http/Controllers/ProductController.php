@@ -23,7 +23,8 @@ class ProductController extends Controller
         ]);
 
         DB::table('products')->insert([
-            'name' => $validated['name']
+            'name' => $validated['name'],
+            'description' => $validated['description']
         ]);
 
         return redirect('/products')->with('status', 'Product saved');
