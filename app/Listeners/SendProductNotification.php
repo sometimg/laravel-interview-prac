@@ -31,12 +31,13 @@ class SendProductNotification
         $email = config('mailto');
         $notify = explode(",", $email);
 
-        foreach($notify as $email) {
+        foreach ($notify as $email) {
             Notification::route('mail', $email)
                 ->notify(new ProductNotification($event->product));
         }
     }
 
-    public function subscribe($events) {
+    public function subscribe($events)
+    {
     }
 }

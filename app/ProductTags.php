@@ -17,13 +17,14 @@ class ProductTags extends Model
      * @param $product_id int the product id
      * @return array list of ids that were found to match
      */
-    static public function add($tags, $product_id = null) {
+    public static function add($tags, $product_id = null)
+    {
         $tag_ids = [];
-        foreach($tags as $tag) {
+        foreach ($tags as $tag) {
             $slug = Str::slug($tag);
             $t = ProductTags::firstOrNew([
                 'slug' => $slug
-            ],[
+            ], [
                 'slug' => $slug,
                 'name' => $tag
             ]);
@@ -46,10 +47,11 @@ class ProductTags extends Model
      * @param $product_id
      * @param $tags
      */
-    static function addProductTagRelationships($product_id, $tags) {
+    public static function addProductTagRelationships($product_id, $tags)
+    {
         $data = [];
 
-        foreach($tags as $tag) {
+        foreach ($tags as $tag) {
             $data[] = [
                 'product_id' => $product_id,
                 'product_tag_id' => $tag

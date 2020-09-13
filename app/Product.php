@@ -21,7 +21,8 @@ class Product extends Model
      * The tags that this product has
      * @return HasManyThrough
      */
-    public function tags() {
+    public function tags()
+    {
         return $this->hasManyThrough(
             'App\ProductTags',
             'App\ProductHasTags',
@@ -30,7 +31,8 @@ class Product extends Model
         );
     }
 
-    public function addTags($product_id, $tags) {
+    public function addTags($product_id, $tags)
+    {
         ProductTags::add($tags, $product_id);
     }
 }

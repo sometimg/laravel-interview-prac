@@ -13,7 +13,8 @@ class ProductController extends Controller
     /** @var ProductContract $products */
     private $products;
 
-    public function __construct(ProductContract $products) {
+    public function __construct(ProductContract $products)
+    {
         $this->products = $products;
     }
 
@@ -42,7 +43,8 @@ class ProductController extends Controller
         return redirect('/products')->with('status', 'Product was deleted');
     }
 
-    private function validateName(Request &$request) {
+    private function validateName(Request &$request)
+    {
         return $request->validate([
             'name' => 'required|unique:products|max:64',
             'description' => '',
@@ -50,7 +52,8 @@ class ProductController extends Controller
         ]);
     }
 
-    private function validateId(Request &$request) {
+    private function validateId(Request &$request)
+    {
         return $request->validate([
             'id' => 'required|integer|exists:products',
         ]);

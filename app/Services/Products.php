@@ -1,5 +1,6 @@
 <?php
 namespace App\Services;
+
 use App\Events\ProductCreated;
 use App\Product;
 
@@ -9,7 +10,8 @@ class Products implements ProductContract
      * Get all the products
      * @return mixed
      */
-    public function get() {
+    public function get()
+    {
         return Product::all();
     }
 
@@ -21,7 +23,8 @@ class Products implements ProductContract
      * ['tags'] the given tags
      * @return id the id of the product created
      */
-    public function create($with) {
+    public function create($with)
+    {
         $model = Product::create([
             'name' => $with['name'],
             'description' => $with['description']
@@ -40,7 +43,8 @@ class Products implements ProductContract
      * Delete a product with a given ID
      * @param $id
      */
-    public function delete($id) {
+    public function delete($id)
+    {
         Product::where('id', '=', $id)->delete();
     }
 
@@ -49,7 +53,8 @@ class Products implements ProductContract
      * @param $string list of all the tags, separated by commas.
      * @return array of strings that are tags
      */
-    private function unique_tags($string) {
+    private function unique_tags($string)
+    {
         $output = explode(",", $string);
         $clean = array_map('trim', $output);
         return array_unique($clean);
