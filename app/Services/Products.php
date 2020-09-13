@@ -1,5 +1,6 @@
 <?php
 namespace App\Services;
+use App\Events\ProductCreated;
 use App\Product;
 
 class Products implements ProductContract
@@ -29,6 +30,8 @@ class Products implements ProductContract
         if (!empty($with['tags'])) {
             $model->addTags($model->id, $this->unique_tags($with['tags']));
         }
+
+        event(new ProductCreated($model));
 
         return $model->id;
     }
