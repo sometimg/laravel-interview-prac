@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'HomeController@index');
-Route::get('/products', 'ProductController@index');
-Route::post('/products/new', 'ProductController@new');
-Route::post('/products/delete', 'ProductController@delete');
+Route::get('/', [HomeController::class, 'index']);
+Route::name('products.')->prefix('products')->group(function () {
+    Route::get('', [ProductController::class, 'index']);
+    Route::post('new', [ProductController::class, 'new']);
+    Route::post('delete', [ProductController::class, 'delete']);
+});
