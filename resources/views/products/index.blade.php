@@ -10,29 +10,29 @@
             .alert-success {
                 color: green;
             }
-
+            .alert-fail {
+                color: red
+            }
         </style>
     </head>
     <body>
 
         <h1>Current Products</h1>
 
-        @if (\App\Product::all()->count())
+        @forelse(\App\Product::all() as $product)
         <ul>
-            @foreach (\App\Product::all() as $product)
             <li>
-                {!! $product->name !!}
+                {{ $product->name }}
                 <form action="/products/delete" method="POST">
                     @csrf
-                    <input type="hidden" name="id" value="@php(print $product->id)"/>
+                    <input type="hidden" name="id" value="{{ $product->id }}"/>
                     <button type="submit">delete</button>
                 </form>
             </li>
-            @endforeach
         </ul>
-        @else
+        @empty
             <p><em>No products have been created yet.</em></p>
-        @endif
+        @endforelse
 
 
 
@@ -48,7 +48,7 @@
         @if ($errors->any())
         <ul>
             @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
+            <li class="alert-fail">{{ $error }}</li>
             @endforeach
         </ul>
         @endif
