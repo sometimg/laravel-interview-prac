@@ -22,14 +22,20 @@ class ProductController extends Controller
             'tags' => '',
         ]);
 
-        DB::insert("INSERT INTO products (name) VALUES ('".$request->name."')");
+        DB::table('products')->insert([
+            'name' => $validated['name']
+        ]);
 
         return redirect('/products')->with('status', 'Product saved');
     }
 
     public function delete(Request $request)
     {
-        DB::delete("DELETE FROM products WHERE id = ".$request->id);
+        $validated = $request->validate([
+            'id' => 'required|integer|exists:products',
+        ]);
+
+        DB::table('products')->where('id', '=', $validated['id'])->delete();
 
         return redirect('/products')->with('status', 'Product was deleted');
     }
